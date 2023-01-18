@@ -25,13 +25,12 @@ with open(budget_csv, "r") as csvfile:
     csv_header = next(csvreader)
     first_row = next(csvreader)
     total_net += int(first_row[1])
-    
     net_prev = int(first_row[1]) 
 
     for row in csvreader:
-      
-        month_total += 1
-        month_total= int(month_total)
+        month_total.append(row[0])
+        total_months = len(month_total) + 1
+        total = sum(Profit_Loss) 
         net_change = int(row[1]) - net_prev
         net_prev = int(row[1])
         month_of_change += [row[0]]
@@ -52,14 +51,16 @@ with open(budget_csv, "r") as csvfile:
 # Create a loop to find changes in Profit and Loss
 Variable_A = (Profit_Loss[i + 1] - Profit_Loss[i] for i in range(len(Profit_Loss)-1))
 Average = sum(Variable_A) / int(len(Profit_Loss))
-print(Average)
+
 
 output = (f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increase[1]})\n"
 f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})\n")
 
 print("Financial Analysis")
 print("------------------------")
-print(month_total)
+print(total_months)
+print(total)
+print(Average)
 print(output)
 
 

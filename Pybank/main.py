@@ -10,7 +10,6 @@ budget_csv= os.path.join("Resources","budget_data.csv")
 # List variables to store the data
 month_total = []
 Profit_Loss = []
-profit_change = []
 month_of_change = []
 greatest_increase = ["",0]
 greatest_decrease = ["",99999999999]
@@ -26,12 +25,13 @@ with open(budget_csv, "r") as csvfile:
     csv_header = next(csvreader)
     first_row = next(csvreader)
     total_net += int(first_row[1])
+    
     net_prev = int(first_row[1]) 
 
-for row in csvreader:
+    for row in csvreader:
       
-        month_total.append(row[0])
-        month_total= len(month_total)
+        month_total += 1
+        month_total= int(month_total)
         net_change = int(row[1]) - net_prev
         net_prev = int(row[1])
         month_of_change += [row[0]]
@@ -56,6 +56,10 @@ print(Average)
 
 output = (f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increase[1]})\n"
 f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})\n")
+
+print("Financial Analysis")
+print("------------------------")
+print(month_total)
 print(output)
 
 

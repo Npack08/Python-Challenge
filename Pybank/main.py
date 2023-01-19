@@ -24,7 +24,8 @@ with open(budget_csv, "r") as csvfile:
     first_row = next(csvreader)
     first_row_data = next(csvreader)
     net_prev = int(first_row_data[1])
-    total += first_row_data[1]
+    total += int(first_row_data[1])
+    month_total.append(first_row_data[0])
 
 # Loop through the variable list
     for row in csvreader:
@@ -32,10 +33,10 @@ with open(budget_csv, "r") as csvfile:
         total_months = len(month_total) 
         total += int(row[1])
         net_change = int(row[1]) - net_prev
-        net_prev = int(first_row_data[1])
+        net_prev = int(row[1])
         month_of_change += [row[0]]
         Profit_Loss.append(net_change)
-        total = sum(Profit_Loss)
+       
 
         # Create an if statement to calculate the greatest increase and decrease in profit
         if net_change > greatest_increase[1]:

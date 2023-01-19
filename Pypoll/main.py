@@ -82,5 +82,5 @@ with open(output_file, "w") as csvfile:
     f"Diana DeGette: {(percent_d)}% ({(votes_Dian)})\n"
     f"Raymon Anthony Doane: {(percent_r)}% ({(votes_Ray)})\n"
     "-------------------------\n"
-    f"Winner: {(winner)}\n")
+    f"{(winner)}\n")
     csvfile.write(csvwrite)

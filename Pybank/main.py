@@ -22,19 +22,21 @@ with open(budget_csv, "r") as csvfile:
     csvreader= csv.reader(csvfile, delimiter=",")
 
     #Read the header row first
-    csv_header = next(csvreader)
+    
     first_row = next(csvreader)
-    total_net += int(first_row[1])
-    net_prev = int(first_row[1]) 
-
+    
+# Loop through the variable list
     for row in csvreader:
         month_total.append(row[0])
-        total_months = len(month_total) + 1
+        total_months = len(month_total) 
         total = sum(Profit_Loss) 
         net_change = int(row[1]) - net_prev
         net_prev = int(row[1])
         month_of_change += [row[0]]
+        Profit_Loss.append(int(row[1]))
+        total = sum(Profit_Loss)
 
+        # Create an if statement to calculate the greatest increas and decrease in profit
         if net_change > greatest_increase[1]:
             greatest_increase[0] = row[0]
             greatest_increase[1] = net_change
@@ -45,12 +47,11 @@ with open(budget_csv, "r") as csvfile:
             greatest_decrease[1] = net_change
     
 
-        Profit_Loss.append(int(row[1]))
-        total = sum(Profit_Loss)
         
-# Create a loop to find changes in Profit and Loss
+        
+# Create a loop to find average change in Profit and Loss
 Variable_A = (Profit_Loss[i + 1] - Profit_Loss[i] for i in range(len(Profit_Loss)-1))
-Average = sum(Variable_A) / int(len(Profit_Loss))
+Average = round(sum(Variable_A) / int(len(Profit_Loss)),2)
 
 
 output = (f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increase[1]})\n"
@@ -58,11 +59,24 @@ f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})
 
 print("Financial Analysis")
 print("------------------------")
-print(total_months)
-print(total)
-print(Average)
+print(f"Total Months:  {total_months}")
+print(f"Total: ${total}")
+print(f"Average Change: $({Average})")
 print(output)
 
+#Set variable for output file
+# Transfer this data into the analysis file 
+output_file = "Analysis.csv"
+
+# Write the result to the Analysis.csv
+with open(output_file, "w") as csvfile:
+    csvwrite=("Financial Analysis\n"
+    "-----------------------\n"
+    f"Total Months:  {total_months}\n"
+    f"Total: ${total}\n"
+    f"Average Change: $({Average})\n"
+    f"{output}")
+    csvfile.write(csvwrite)
 
 
         
